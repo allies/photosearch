@@ -1,6 +1,3 @@
-#Building a photosearch with Elastic Search 
-#Read more at: http://blog.sandeepchivukula.com/
-
 elasticsearch-1:
      image: elasticsearch
      container_name: elasticsearch-1
