@@ -54,12 +54,11 @@ li {
     display: inline;
 }
 
-.bclass {
-    text-align: center;
-}
-
 .form {
     display: inline-block;
     width: 30%;
-    margin-bottom: 100px;
+}
+
+.results {
+    margin: 100px 0;
 }

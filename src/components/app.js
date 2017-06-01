@@ -60,7 +60,7 @@ class App extends React.Component {
 	renderPosts() {
 
 		return(
-			<div className="test bclass">
+			<div className="results">
                         <SearchResults results={ this.state.results } />
 						<button type="button" className="btn btn-default">Load More</button>
                     </div>
