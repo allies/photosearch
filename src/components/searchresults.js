@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 
-let i = 1;
-
-
 class SearchResults extends React.Component {
 
 	constructor(props) {
@@ -19,7 +16,7 @@ class SearchResults extends React.Component {
                 <ul>
 				{ this.props.results.map((result) => {
 					return (
-								<li key={ result._id + i++}>
+								<li key={ result._source.file_name }>
 									<LazyLoad className="lazy">
 										<img className="image" src={"http://rohitmotwani.com/photos/" + result._source.file_name} alt="Search Result" />
 									</LazyLoad>

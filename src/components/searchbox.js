@@ -7,28 +7,65 @@ let client = new elasticsearch.Client({
 	log: 'trace'
 })
 
+
+var size = 20;
+var from_size = 0;
+var search_query = '*'
+
 class Searchbox extends React.Component {
     constructor(props) {
         super(props);
 		this.state = { results: [], notFound: true }
         this.handleChange = this.handleChange.bind(this);
+        this.next = this.next.bind(this);
+        this.prev = this.prev.bind(this);
+        this.er = this.er.bind(this);
+        this.esSearch = this.esSearch.bind(this);
 	} 
 
 	componentWillMount() {
-		var search_query = '*';
-		this.esSearch(search_query);
+		search_query = '*';
+        this.esSearch(search_query, from_size);
 	}
 
 	handleChange ( event ) {
-		var search_query = event.target.value + '*';
-		this.esSearch(search_query);
+		search_query = event.target.value + '*';
+        from_size = 0;
+        this.esSearch(search_query, from_size);
 	}
 
-	esSearch( sq ) {
+    next() {
+        from_size += size;
+        if(from_size<=size) {
+        console.log(from_size);
+        console.log(search_query);
+        this.esSearch(search_query, from_size);
+    }
+        else {
+            this.er();
+            from_size -= size;
+        }
+    }
+
+    prev() {
+        from_size -= size;
+        if(from_size>=0) {
+        console.log(from_size);
+        console.log(search_query);
+        this.esSearch(search_query, from_size);
+    }
+        else {
+            this.er();
+            from_size += size;
+        }
+    }
+
+    er() {
+        console.log("ERROR");
+    }
+
+	esSearch( sq, from ) {
 		var search_query = sq;
-		var size = 20;
-		var from_size = -20;
-		var from = from_size + size;
 
 		client.search({
 			index: 'photos',
@@ -58,8 +95,9 @@ class Searchbox extends React.Component {
 
 		return(
 			<div className="results">
-                        <SearchResults results={ this.state.results } />
-						<button type="button" className="btn btn-default">Load More</button>
+                        <SearchResults key={this.from_size} results={ this.state.results } />
+						<button id="prev" type="button" className="btn btn-primary" onClick={this.prev} >Prev</button>
+                        <button id="next" type="button" className="btn btn-primary" onClick={this.next} >Next</button>
                     </div>
 		)
 		
