@@ -42,11 +42,6 @@ li {
     margin: 50px;
 }
 
-.test {
-    margin-bottom: 100px;
-    text-align: center;
-}
-
 .image {
     margin: 15px;
     width: 200px;
@@ -66,4 +61,5 @@ li {
 .form {
     display: inline-block;
     width: 30%;
+    margin-bottom: 100px;
 }

@@ -6,7 +6,6 @@ class Footer extends React.Component {
         return (
             <div className="footer">
                 <Clock date={new Date()} />
-                <p>This is a footer</p>
             </div>
         );
     }
