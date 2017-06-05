@@ -11,14 +11,16 @@ class SearchResults extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<div className="cont">
 				<hr />
                 <ul>
 				{ this.props.results.map((result) => {
 					return (
 								<li key={ result._source.file_name }>
 									<LazyLoad className="lazy">
-										<img className="image" src={"http://rohitmotwani.com/photos/" + result._source.file_name} alt="Search Result" />
+										<a href={"/photos/" + result._source.file_name + ".html"} target="_blank" rel="noopener noreferrer">
+											<img className="image" src={"http://localhost:3000/photos/" + result._source.file_name} alt="Search Result" />
+										</a>
 									</LazyLoad>
 								</li>
 							) }) }		

@@ -3,3 +3,4 @@ node_modules/
 indexer/node_modules
 indexer/photos/
 build/
+public/photos

@@ -1,24 +1,24 @@
-import React from 'react'
+import React, { Component } from 'react'
 import SearchResults from './searchresults';
 import elasticsearch from 'elasticsearch';
+import ReactScrollPagination from 'react-scroll-pagination';
 
 let client = new elasticsearch.Client({
-	host: '192.168.1.46:9200',
+	host: 'localhost:9200',
 	log: 'trace'
 })
 
 
-var size = 20;
+var size = 30;
 var from_size = 0;
 var search_query = '*'
 
-class Searchbox extends React.Component {
+class Searchbox extends Component {
     constructor(props) {
         super(props);
 		this.state = { results: [], notFound: true }
         this.handleChange = this.handleChange.bind(this);
         this.next = this.next.bind(this);
-        this.prev = this.prev.bind(this);
         this.er = this.er.bind(this);
         this.esSearch = this.esSearch.bind(this);
 	} 
@@ -31,37 +31,21 @@ class Searchbox extends React.Component {
 	handleChange ( event ) {
 		search_query = event.target.value + '*';
         from_size = 0;
+        this.setState({
+                results: []
+            });
         this.esSearch(search_query, from_size);
 	}
 
     next() {
         from_size += size;
-        if(from_size<=size) {
         console.log(from_size);
         console.log(search_query);
         this.esSearch(search_query, from_size);
-    }
-        else {
-            this.er();
-            from_size -= size;
-        }
-    }
-
-    prev() {
-        from_size -= size;
-        if(from_size>=0) {
-        console.log(from_size);
-        console.log(search_query);
-        this.esSearch(search_query, from_size);
-    }
-        else {
-            this.er();
-            from_size += size;
-        }
     }
 
     er() {
-        console.log("ERROR");
+        console.log("NO MORE PAGES");
     }
 
 	esSearch( sq, from ) {
@@ -80,7 +64,14 @@ class Searchbox extends React.Component {
 			else {
 				this.setState({notFound: false})
 			}
-			this.setState({ results: body.hits.hits })
+			let oldState = this.state.results.slice();
+            body.hits.hits.forEach(function (searchResult) {
+                oldState.push(searchResult)    
+            });
+
+            this.setState({
+                results: oldState
+            });
 		}.bind(this), function ( error ) {
 			console.trace( error.message );
 
@@ -88,7 +79,7 @@ class Searchbox extends React.Component {
 	}
 
 	renderNotFound() {
-    return <div>No Vectors found. Try a different search.</div>;
+    return <div className="notFound">No Vectors found. Try a different search.</div>;
   	}
 
 	renderPosts() {
@@ -96,8 +87,9 @@ class Searchbox extends React.Component {
 		return(
 			<div className="results">
                         <SearchResults key={this.from_size} results={ this.state.results } />
-						<button id="prev" type="button" className="btn btn-primary" onClick={this.prev} >Prev</button>
-                        <button id="next" type="button" className="btn btn-primary" onClick={this.next} >Next</button>
+                          <ReactScrollPagination
+                          fetchFunc={this.next.bind(this)}
+                            />
                     </div>
 		)
 		
@@ -109,7 +101,7 @@ class Searchbox extends React.Component {
 
         return (
             <div>
-                <input id="search" className="form-control form" type="text" placeholder="Start Searching" name="search" onChange={ this.handleChange }></input>
+                <input id="search" className="form-control form fix" type="text" placeholder="Start Searching" name="search" onChange={ this.handleChange }></input>
 					<div>
 						{notFound ? this.renderNotFound() : this.renderPosts()}
 					</div>
