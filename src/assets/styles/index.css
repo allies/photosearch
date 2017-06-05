@@ -77,3 +77,8 @@ ul {
     padding: 50px;
     font-size: 20px;
 }
+
+.istyle {
+    float: left;
+    margin: 50px;
+}

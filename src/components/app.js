@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from './header';
 import Searchbox from './searchbox';
-import Footer from './footer';
 
 
 class App extends React.Component {
@@ -10,9 +8,7 @@ class App extends React.Component {
 	
 		return (
             <div className="main">
-                <Header />
                 <Searchbox />
-                <Footer />
             </div>
 		)
 	}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/app';
+import Routes from './routes/routes';
 import './assets/styles/bootstrap.min.css';
 import './assets/styles/index.css';
 
 
-render( <App />, document.getElementById( 'root' ) )
+render( <Routes />, document.getElementById( 'root' ) )
