@@ -1,14 +1,18 @@
 import React from 'react';
 
-
+var str
 
 var Single = ({match}) => (
-    <div>
-		<div className="istyle">
+	<div className="row">		
+		<div className="col-md-3">
         	<img src={"/photos/" + match.params.id} alt={match.params.id}/>
 		</div>
-		<div>
-			<h1>I am Single</h1>
+		<div className="col-md-9">
+			<h1>File Name: {str = match.params.id.slice(0, -4)}</h1>
+			<h2><a className="btn btn-success" href={"/ai/" + str + ".ai"}>Download .ai file</a></h2>
+			<h2><a className="btn btn-success" href={"/eps/" + str + ".eps"}>Download .eps file</a></h2>
+			{console.log(match.params.keyw)}
+			<h3>Keywords : <li>{match.params.keyw}</li></h3>
 		</div>
 	</div>
 )

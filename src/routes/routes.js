@@ -21,7 +21,7 @@ class Routes extends React.Component {
                     <Header />
                     <Switch>
                         <Route exact path = "/" component={App}/>
-                        <Route path = "/photo/:id" component={Single}/> 
+                        <Route path = "/photo/:id/:keyw" component={Single}/> 
                         <Route path = "/*" component={NoMatch} /> 
                     </Switch>
                     <Footer />

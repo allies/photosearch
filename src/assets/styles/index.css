@@ -15,6 +15,15 @@ ul {
     padding: 40px;
 }
 
+h3 {
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+h3 li {
+    font-size: 18px;
+}
+
 .main {
     text-align: center;
 }
@@ -40,6 +49,7 @@ ul {
     right: 0;
     bottom: 0;
     left: 0;
+    margin-top: 50px;
 }
 
 .logo {
@@ -81,4 +91,8 @@ ul {
 .istyle {
     float: left;
     margin: 50px;
+}
+
+.nop {
+    padding: 0px;
 }
