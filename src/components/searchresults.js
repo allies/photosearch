@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
-import Single from './single';
 import {
   Link
 } from 'react-router-dom';

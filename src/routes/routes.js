@@ -11,7 +11,6 @@ import Single from '../components/single';
 import NoMatch from '../components/noMatch';
 
 
-
 class Routes extends React.Component {
     
     render() {

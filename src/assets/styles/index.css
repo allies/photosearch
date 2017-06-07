@@ -11,10 +11,6 @@ li {
     font-size: 20px;
 }
 
-ul {
-    padding: 40px;
-}
-
 h3 {
     font-size: 20px;
     margin-bottom: 50px;
@@ -91,8 +87,4 @@ h3 li {
 .istyle {
     float: left;
     margin: 50px;
-}
-
-.nop {
-    padding: 0px;
 }

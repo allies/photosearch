@@ -9,13 +9,18 @@
     "jquery": true
   },
   "dependencies": {
+    "deep-freeze": "0.0.1",
     "elasticsearch-scroll": "^1.1.1",
     "lodash.identity": "^3.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-grid-gallery": "^0.3.3",
     "react-infinite-scroller": "^1.0.12",
-    "react-scroll-pagination": "^0.1.9"
+    "react-lazy-load": "^3.0.12",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "react-scroll-pagination": "^0.1.9",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "elasticsearch": "^13.0.1",

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchResults from './searchresults';
 import elasticsearch from 'elasticsearch';
 import ReactScrollPagination from 'react-scroll-pagination';
+import deepFreeze from 'deep-freeze';
 
 let client = new elasticsearch.Client({
 	host: 'localhost:9200',
@@ -9,9 +10,10 @@ let client = new elasticsearch.Client({
 })
 
 
-var size = 30;
-var from_size = 0;
-var search_query = '*'
+let size = 30;
+let from_size = 0;
+let search_query = '*';
+let oldState;
 
 class Searchbox extends Component {
     constructor(props) {
@@ -24,7 +26,7 @@ class Searchbox extends Component {
 	} 
 
 	componentWillMount() {
-		search_query = '*';
+        from_size = 0;
         this.esSearch(search_query, from_size);
 	}
 
@@ -39,8 +41,6 @@ class Searchbox extends Component {
 
     next() {
         from_size += size;
-        console.log(from_size);
-        console.log(search_query);
         this.esSearch(search_query, from_size);
     }
 
@@ -64,11 +64,11 @@ class Searchbox extends Component {
 			else {
 				this.setState({notFound: false})
 			}
-			let oldState = this.state.results.slice();
+			oldState = this.state.results.slice();
             body.hits.hits.forEach(function (searchResult) {
                 oldState.push(searchResult)    
             });
-
+            deepFreeze(oldState);
             this.setState({
                 results: oldState
             });
@@ -86,7 +86,7 @@ class Searchbox extends Component {
 
 		return(
 			<div className="results">
-                        <SearchResults key={this.from_size} results={ this.state.results } />
+                        <SearchResults key={this.from_size} results={ this.state.results }/>
                           <ReactScrollPagination
                           fetchFunc={this.next.bind(this)}
                             />
@@ -101,7 +101,14 @@ class Searchbox extends Component {
 
         return (
             <div>
-                <input id="search" className="form-control form fix" type="text" placeholder="Start Searching" name="search" onChange={ this.handleChange }></input>
+                <input 
+                    id="search" 
+                    className="form-control form fix" 
+                    type="text" 
+                    placeholder="Start Searching" 
+                    name="search" 
+                    onChange={ this.handleChange }
+                ></input>
 					<div>
 						{notFound ? this.renderNotFound() : this.renderPosts()}
 					</div>

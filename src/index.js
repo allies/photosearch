@@ -4,5 +4,5 @@ import Routes from './routes/routes';
 import './assets/styles/bootstrap.min.css';
 import './assets/styles/index.css';
 
-
-render( <Routes />, document.getElementById( 'root' ) )
+render( 
+    <Routes />, document.getElementById( 'root' ) )
