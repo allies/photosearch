@@ -25,6 +25,7 @@
   "devDependencies": {
     "elasticsearch": "^13.0.1",
     "gh-pages": "^1.0.0",
+    "react-dev-utils": "^3.0.0",
     "react-scripts": "1.0.5"
   },
   "scripts": {
