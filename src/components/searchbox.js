@@ -2,19 +2,24 @@ import React, { Component } from 'react'
 import SearchResults from './searchresults';
 import elasticsearch from 'elasticsearch';
 import ReactScrollPagination from 'react-scroll-pagination';
-import deepFreeze from 'deep-freeze';
+import { createStore } from 'redux';
+import Nav from '../reducers/reducer';
+import { addPage, changePage } from '../actions/actions';
 
 let client = new elasticsearch.Client({
 	host: 'localhost:9200',
 	log: 'trace'
 })
 
+let store = createStore(Nav)
 
 let size = 30;
 let from_size = 0;
 let search_query = '*';
 let oldState;
+let max = 0;
 
+export const Size = size;
 class Searchbox extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +30,7 @@ class Searchbox extends Component {
         this.esSearch = this.esSearch.bind(this);
 	} 
 
-	componentWillMount() {
+	componentDidMount() {
         from_size = 0;
         this.esSearch(search_query, from_size);
 	}
@@ -40,8 +45,10 @@ class Searchbox extends Component {
 	}
 
     next() {
+        if(from_size<max) {
         from_size += size;
         this.esSearch(search_query, from_size);
+        }
     }
 
     er() {
@@ -64,11 +71,11 @@ class Searchbox extends Component {
 			else {
 				this.setState({notFound: false})
 			}
+            max = body.hits.total
 			oldState = this.state.results.slice();
             body.hits.hits.forEach(function (searchResult) {
                 oldState.push(searchResult)    
             });
-            deepFreeze(oldState);
             this.setState({
                 results: oldState
             });
@@ -84,21 +91,20 @@ class Searchbox extends Component {
 
 	renderPosts() {
 
+        console.log(this.state);
 		return(
 			<div className="results">
-                        <SearchResults key={this.from_size} results={ this.state.results }/>
+                        <SearchResults key={this.from_size} results={ this.state.results } />
                           <ReactScrollPagination
                           fetchFunc={this.next.bind(this)}
                             />
                     </div>
 		)
-		
 	}
     
     render() {
 
         const { notFound } = this.state;
-
         return (
             <div>
                 <input 
