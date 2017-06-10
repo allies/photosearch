@@ -9,13 +9,15 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Single from '../components/single';
 import NoMatch from '../components/noMatch';
+import createHistory from 'history/createBrowserHistory'
 
+const history = createHistory();
 
 class Routes extends React.Component {
     
     render() {
         return(
-            <Router>
+            <Router history={history}>
                  <div className="main">
                     <Header />
                     <Switch>

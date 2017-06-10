@@ -85,6 +85,7 @@ h3 li {
 }
 
 .istyle {
-    float: left;
-    margin: 50px;
+    list-style: none;
+    display: inline;
+    font-size: 20px;
 }

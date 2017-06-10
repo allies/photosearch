@@ -2,16 +2,14 @@ import React, { Component } from 'react'
 import SearchResults from './searchresults';
 import elasticsearch from 'elasticsearch';
 import ReactScrollPagination from 'react-scroll-pagination';
-import { createStore } from 'redux';
-import Nav from '../reducers/reducer';
-import { addPage, changePage } from '../actions/actions';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import * as Actions from '../actions/actions';
 
 let client = new elasticsearch.Client({
 	host: 'localhost:9200',
 	log: 'trace'
 })
-
-let store = createStore(Nav)
 
 let size = 30;
 let from_size = 0;
@@ -19,14 +17,12 @@ let search_query = '*';
 let oldState;
 let max = 0;
 
-export const Size = size;
 class Searchbox extends Component {
-    constructor(props) {
-        super(props);
+    constructor(results, notFound, props) {
+        super(results, notFound, props);
 		this.state = { results: [], notFound: true }
         this.handleChange = this.handleChange.bind(this);
         this.next = this.next.bind(this);
-        this.er = this.er.bind(this);
         this.esSearch = this.esSearch.bind(this);
 	} 
 
@@ -34,6 +30,14 @@ class Searchbox extends Component {
         from_size = 0;
         this.esSearch(search_query, from_size);
 	}
+
+    componentWillUnmount() {
+    return false;
+  }
+
+  componentWillUpdate() {
+      return false;
+  }
 
 	handleChange ( event ) {
 		search_query = event.target.value + '*';
@@ -49,10 +53,6 @@ class Searchbox extends Component {
         from_size += size;
         this.esSearch(search_query, from_size);
         }
-    }
-
-    er() {
-        console.log("NO MORE PAGES");
     }
 
 	esSearch( sq, from ) {
@@ -91,7 +91,6 @@ class Searchbox extends Component {
 
 	renderPosts() {
 
-        console.log(this.state);
 		return(
 			<div className="results">
                         <SearchResults key={this.from_size} results={ this.state.results } />
@@ -124,4 +123,15 @@ class Searchbox extends Component {
 
 }
 
-export default Searchbox;
+const mapStateToProps = (state) => ({
+  ...state
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Actions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Searchbox);

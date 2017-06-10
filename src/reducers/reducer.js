@@ -1,23 +1,18 @@
 import { combineReducers } from 'redux';
-import { ADD_PAGE, CHANGE_PAGE } from '../actions/actions';
-import { Size } from '../components/searchbox';
+import { ADD_PAGE } from '../actions/actions';
 
-const initialState = {
-  from: 0,
-  results: []
+export const initialState = {
+  results: [],
+  notFound: true
 }
 
 function navigate(state = initialState, action) {
     switch(action.type) {
         case ADD_PAGE:
            return [...state, {
-               from: action.from + Size,
-               results: action.results
+               results: action.results,
+               notFound: action.notFound
            }]
-        case CHANGE_PAGE:
-            return [...state, {
-                path: action.path
-            }]
         default:
             return state
     }
