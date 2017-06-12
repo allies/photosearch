@@ -7,14 +7,11 @@ import { createStore } from 'redux';
 import Nav from './reducers/reducer';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import TodoList from './components/todo';
 
 export const store = createStore(Nav);
 
 
 render( 
-    <Provider store={store}>
-        <Router>
-            <Route component={Routes} />
-        </Router>
-    </Provider>, 
+    <TodoList />, 
     document.getElementById( 'root' ) )

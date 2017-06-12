@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
 import { Link } from 'react-router-dom';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 class SearchResults extends React.Component {
 
@@ -28,18 +29,18 @@ class SearchResults extends React.Component {
 									<div className="istyle">
 										{this.close}
 										<Link to={{pathname: '/photo/' + result._source.file_name + '/' + result._source.keywords, state: { modal: true }}}>
+											<CSSTransitionGroup
+												transitionName="example"
+												transitionEnterTimeout={500}
+												transitionLeaveTimeout={300}>
 											<img src={'/photos/' + result._source.file_name} className="image" alt="Search Result" />
+											</CSSTransitionGroup>
 										</Link>
 									</div>
 							</LazyLoad>
 						</li>
 					) }) }		
 				</ul>
-				{this.props.children && (
-				<div className="overlayStyles">
-					{this.props.children}
-				</div>
-				)}
 			</div>
 		)
 	}
