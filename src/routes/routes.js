@@ -34,7 +34,7 @@ class Routes extends React.Component {
                  <div>
                     <Switch location={isModal ? this.previousLocation : location}>
                         <Route exact path = "/" component={App}/>
-                        <Route path = "/photo/:id/:keyw" component={SingleWrapper}/> 
+                        <Route path = "/photo/:id/:keyw" component={Individual}/> 
                         <Route path = "/*" component={NoMatch} /> 
                     </Switch>
                     {isModal ? <Route path='/photo/:id/:keyw' component={Single} /> : null}
