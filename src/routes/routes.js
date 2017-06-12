@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import App from '../components/app';
 import Single from '../components/single';
-import Individual from '../components/Individual';
+import Individual from '../components/individual';
 import NoMatch from '../components/noMatch';
 
 class Routes extends React.Component {
