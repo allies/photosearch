@@ -1,33 +1,44 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
 import App from '../components/app';
-import Header from '../components/header';
-import Footer from '../components/footer';
 import Single from '../components/single';
+import Individual from '../components/Individual';
 import NoMatch from '../components/noMatch';
-import createHistory from 'history/createBrowserHistory'
-
-const history = createHistory();
 
 class Routes extends React.Component {
     
+    previousLocation = this.props.location
+
+    componentWillUpdate(nextProps) {
+        const { location } = this.props
+        if (
+        nextProps.history.action !== 'POP' &&
+        (!location.state || !location.state.modal)
+        ) {
+        this.previousLocation = this.props.location
+        }
+    }
+
+    
     render() {
+        const { location } = this.props
+        const isModal = !!(
+        location.state &&
+        location.state.modal &&
+        this.previousLocation !== location 
+        )
         return(
-            <Router history={history}>
-                 <div className="main">
-                    <Header />
-                    <Switch>
+                 <div>
+                    <Switch location={isModal ? this.previousLocation : location}>
                         <Route exact path = "/" component={App}/>
-                        <Route path = "/photo/:id/:keyw" component={Single}/> 
+                        <Route path = "/photo/:id/:keyw" component={SingleWrapper}/> 
                         <Route path = "/*" component={NoMatch} /> 
                     </Switch>
-                    <Footer />
+                    {isModal ? <Route path='/photo/:id/:keyw' component={Single} /> : null}
                 </div>
-            </Router>
         )
     }
 }

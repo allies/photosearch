@@ -1,33 +1,54 @@
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 
-var str
+let str;
 
 class Single extends React.Component {
-	constructor(props){
-		super(props);
-		this.setState({ results: []})
-	}
 
-render(){
-	return (
-		<div className="row">
-			<div className="col-md-1"></div>		
-			<div className="col-md-10">	
-				<div className="row">
-					<div className="col-md-3">
-						<img className="image" src={"/photos/" + this.props.id} alt={this.props.id}/>
+	back = (e) => {
+    	e.stopPropagation()
+    	this.props.history.goBack()
+  	}
+	
+	render() {
+		return (
+			<div
+			style={{
+				position: 'fixed',
+				top: 0,
+				left: 0,
+				bottom: 0,
+				right: 0,
+				background: 'rgba(0, 0, 0, 0.15)'
+			}}
+			>
+			<div style={{
+				position: 'fixed',
+				background: '#fff',
+				top: 25,
+				left: '10%',
+				right: '10%',
+				padding: 15,
+				border: '2px solid #444'
+			}}>
+				<div className="cent">
+					<div>
+						<img className="image" src={"/photos/" + this.props.match.params.id} alt={this.props.match.params.id}/>
 					</div>
-					<div className="col-md-9">
-						<h1>File Name: {str = this.props.id.slice(0, -4)}</h1>
+					<div>
+						<h1>File Name: {str = this.props.match.params.id.slice(0, -4)}</h1>
 						<h2><a className="btn btn-success" href={"/ai/" + str + ".ai"}>Download .ai file</a></h2>
 						<h2><a className="btn btn-success" href={"/eps/" + str + ".eps"}>Download .eps file</a></h2>
-						<h3>Keywords : <li>{this.props.keyw}</li></h3>
+						<h3>Keywords : <li>{this.props.match.params.keyw}</li></h3>
+						<button type='button' className="btn btn-primary" onClick={this.back}>
+							Close
+						</button>
 					</div>
 				</div>
+				</div>
 			</div>
-			<div className="col-md-1"></div>
-		</div>
-	)
+		)
+	}
 }
-}
+
 export default Single;

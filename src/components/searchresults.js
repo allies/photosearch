@@ -1,18 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
-import Single from './single';
-import { Modal, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class SearchResults extends React.Component {
-
-	constructor(props) {
-        super(props);
-		this.state = { showModal: false }
-		this.open = this.open.bind(this);
-		this.close = this.close.bind(this);
-	}
-
 
 	componentWillMount() {
 		return this.state;
@@ -21,14 +12,6 @@ class SearchResults extends React.Component {
 	componentWillUnmount() {
 		return false;
 	}
-
-	close() {
-    	this.setState({ showModal: false });
-  	}
-
-  	open() {
-    	this.setState({ showModal: true });
-  	}
 
 	render () {
 		
@@ -43,22 +26,20 @@ class SearchResults extends React.Component {
 						<li key={ result._source.file_name }>
 							<LazyLoad className="lazy">
 									<div className="istyle">
-									<img onClick={this.open} src={'/photos/' + result._source.file_name} className="image" alt="Search Result" />
-									<Button
-									bsStyle="primary"
-									bsSize="large"
-									onClick={this.open}
-									>
-									Launch demo modal
-									</Button>
-									<Modal show={this.state.showModal} onHide={this.close}>
-									<Single id={result._source.file_name} keyw={result._source.keywords}/>
-									</Modal>
+										{this.close}
+										<Link to={{pathname: '/photo/' + result._source.file_name + '/' + result._source.keywords, state: { modal: true }}}>
+											<img src={'/photos/' + result._source.file_name} className="image" alt="Search Result" />
+										</Link>
 									</div>
 							</LazyLoad>
 						</li>
 					) }) }		
 				</ul>
+				{this.props.children && (
+				<div className="overlayStyles">
+					{this.props.children}
+				</div>
+				)}
 			</div>
 		)
 	}
