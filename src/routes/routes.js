@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Switch,
-  Route
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import App from '../components/app';
 import Single from '../components/single';
 import Individual from '../components/individual';
