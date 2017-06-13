@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 let str;
 const ModalWrapper= {
 					position: 'fixed',
@@ -29,8 +30,9 @@ class Single extends React.Component {
 	
 	render() {
 		return (
-			<div style={ModalWrapper} >
-				<div style={Modal}>
+			
+			<div style={ModalWrapper}>
+				<div style={Modal} className="modal-body">
 					<div className="cent">
 						<div>
 							<img className="image" src={"/photos/" + this.props.match.params.id} alt={this.props.match.params.id}/>
@@ -40,12 +42,12 @@ class Single extends React.Component {
 							<h2><a className="btn btn-success" href={"/ai/" + str + ".ai"}>Download .ai file</a></h2>
 							<h2><a className="btn btn-success" href={"/eps/" + str + ".eps"}>Download .eps file</a></h2>
 							<h3>Keywords : <li>{this.props.match.params.keyw}</li></h3>
-							<button type='button' className="btn btn-primary" onClick={this.back}>
+							<button type='button' className="btn btn-primary grow-shadow" onClick={this.back}>
 								Close
 							</button>
 						</div>
 					</div>
-				</div>
+					</div>
 			</div>
 		)
 	}

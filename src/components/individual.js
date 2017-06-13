@@ -19,12 +19,9 @@ class Individual extends React.Component {
 						<h2><a className="btn btn-success" href={"/ai/" + str + ".ai"}>Download .ai file</a></h2>
 						<h2><a className="btn btn-success" href={"/eps/" + str + ".eps"}>Download .eps file</a></h2>
 						<h3>Keywords : <li>{this.props.match.params.keyw}</li></h3>
-						<Link to='/' className="btn btn-primary">
+						<Link to='/' className="btn btn-primary backHome">
 							Back to Home
 						</Link>
-						<br />
-						<br />
-						<br />
 					</div>
 					<Footer />
 				</div>
