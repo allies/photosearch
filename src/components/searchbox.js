@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import SearchResults from './searchresults';
 import elasticsearch from 'elasticsearch';
 import ReactScrollPagination from 'react-scroll-pagination';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import * as Actions from '../actions/actions';
 
 let client = new elasticsearch.Client({
 	host: 'localhost:9200',
@@ -18,7 +15,7 @@ let oldState;
 let max = 0;
 
 class Searchbox extends Component {
-    constructor(results, notFound, props) {
+    constructor(results, notFound, props) {                 //Initializing the functions
         super(results, notFound, props);
 		this.state = { results: [], notFound: true }
         this.handleChange = this.handleChange.bind(this);
@@ -26,40 +23,40 @@ class Searchbox extends Component {
         this.esSearch = this.esSearch.bind(this);
 	} 
 
-	componentDidMount() {
+	componentDidMount() {                                   //Starting React Component Lifecycle
         from_size = 0;
         this.esSearch(search_query, from_size);
 	}
 
-    componentWillUnmount() {
-    return false;
+    componentWillUnmount() {                                //Unmounting the Component
+    return true;
   }
 
-  componentWillUpdate() {
-      return false;
+  componentWillUpdate() {                                   //Not to update the component on component
+      return false;                                         //change
   }
 
-	handleChange ( event ) {
+	handleChange ( event ) {                            //Fetching Results While Typing
 		search_query = event.target.value + '*';
         from_size = 0;
         this.setState({
-                results: []
+                results: []                             //Array in which Results are stored
             });
         this.esSearch(search_query, from_size);
 	}
 
-    next() {
+    next() {                                            //Scroll to next set of results
         if(from_size<max) {
         from_size += size;
         this.esSearch(search_query, from_size);
         }
     }
 
-	esSearch( sq, from ) {
+	esSearch( sq, from ) {                              //Passing the query to elasticsearch
 		var search_query = sq;
 
 		client.search({
-			index: 'photos',
+			index: 'photos',                            //Query Parameters
 			type: 'photo',
 			q: search_query,
 			size: size,
@@ -72,8 +69,8 @@ class Searchbox extends Component {
 				this.setState({notFound: false})
 			}
             max = body.hits.total
-			oldState = this.state.results.slice();
-            body.hits.hits.forEach(function (searchResult) {
+			oldState = this.state.results.slice();              //A new array to store data, to avoid
+            body.hits.hits.forEach(function (searchResult) {    //Mutability
                 oldState.push(searchResult)    
             });
             this.setState({
@@ -85,13 +82,13 @@ class Searchbox extends Component {
 		});
 	}
 
-	renderNotFound() {
+	renderNotFound() {                                   //Display Not found if query returns nothing
     return <div className="notFound">No Vectors found. Try a different search.</div>;
   	}
 
 	renderPosts() {
 
-		return(
+		return(                                         //Displays the query search results
 			<div className="results">
                         <SearchResults key={this.from_size} results={ this.state.results } />
                           <ReactScrollPagination
@@ -111,11 +108,11 @@ class Searchbox extends Component {
                     className="form-control form fix" 
                     type="text" 
                     placeholder="Start Searching" 
-                    name="search" 
+                    name="s_query" 
                     onChange={ this.handleChange }
                 ></input>
 					<div>
-						{notFound ? this.renderNotFound() : this.renderPosts()}
+						{notFound ? this.renderNotFound() : this.renderPosts()} 
 					</div>
             </div>
         )
@@ -123,15 +120,4 @@ class Searchbox extends Component {
 
 }
 
-const mapStateToProps = (state) => ({
-  ...state
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Actions, dispatch)
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Searchbox);
+export default Searchbox;

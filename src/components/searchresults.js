@@ -21,12 +21,11 @@ class SearchResults extends React.Component {
 				<div>
 				</div>
                 <ul>
-				{ this.props.results.map((result) => {
+				{ this.props.results.map((result) => {				//Fetching Each Element
 					return (
 						<li key={ result._source.file_name }>
-							<LazyLoad className="lazy">
+							<LazyLoad className="lazy"> 
 									<div className="istyle">
-										{this.close}
 										<Link to={{pathname: '/photo/' + result._source.file_name + '/' + result._source.keywords, state: { modal: true }}}>
 											<img src={'/photos/' + result._source.file_name} className="image grow-shadow" alt="Search Result" />
 										</Link>
@@ -42,7 +41,7 @@ class SearchResults extends React.Component {
 
 
 
-SearchResults.propTypes = {
+SearchResults.propTypes = {				//Setting the propTypes of the results, i.e Array
 		results: PropTypes.array
 	}
 

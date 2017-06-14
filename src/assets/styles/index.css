@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     min-height: 100%;
+    font-family: 'Raleway', sans-serif;
 }
 
 a,
@@ -31,6 +33,7 @@ h3 {
 
 h3 li {
     font-size: 18px;
+    font-weight: 200;
 }
 
 .main {
@@ -143,4 +146,21 @@ h3 li {
     box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.closeRight {
+    float: right;
+    margin-right: 10px;
+}
+
+.close {
+    float: right;
+    position: fixed;
+    text-align: right;
+    color: #000000;
+}
+
+.docs {
+    float: right;
+    text-align: right;
 }

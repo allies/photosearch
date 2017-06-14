@@ -33,6 +33,9 @@ class Single extends React.Component {
 			
 			<div style={ModalWrapper}>
 				<div style={Modal} className="modal-body">
+					<div className="closeRight">
+						<button className="close" onClick={this.back}>X</button>
+					</div>
 					<div className="cent">
 						<div>
 							<img className="image" src={"/photos/" + this.props.match.params.id} alt={this.props.match.params.id}/>
