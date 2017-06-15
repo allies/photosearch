@@ -1,14 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     min-height: 100%;
+    font-family: 'Raleway', sans-serif;
+}
+
+a,
+a:hover {
+    color: #ffffff
 }
 
 li {
     list-style: none;
     display: inline;
     font-size: 20px;
+}
+
+ul {
+    padding: 0px;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+h3 li {
+    font-size: 18px;
+    font-weight: 200;
 }
 
 .main {
@@ -36,6 +61,7 @@ li {
     right: 0;
     bottom: 0;
     left: 0;
+    margin-top: 50px;
 }
 
 .logo {
@@ -43,9 +69,11 @@ li {
 }
 
 .image {
+    max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
     margin: 15px;
-    width: 200px;
-    height: 200px;
     border: 1px solid #000000;
     border-radius: 10%;
 }
@@ -61,4 +89,78 @@ li {
 
 .results {
     margin: 100px 0;
+}
+
+.notFound {
+    padding: 50px;
+    font-size: 20px;
+}
+
+.istyle {
+    list-style: none;
+    display: inline;
+    font-size: 20px;
+}
+
+.overlayStyles {
+    position: 'fixed';
+    top: 30;
+    right: 30;
+    bottom: 30;
+    left: 30;
+    padding: 20;
+    box-shadow: '0px 0px 50px 30px rgba(0, 0, 0, 0.5)';
+    overflow: 'auto';
+    background: '#fff';
+}
+
+.cent {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.backHome {
+    margin: 0 0 100px 0;
+}
+
+.modal-body {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.grow-shadow {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+}
+
+.grow-shadow:hover,
+.grow-shadow:focus,
+.grow-shadow:active {
+    box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.closeRight {
+    float: right;
+    margin-right: 10px;
+}
+
+.close {
+    float: right;
+    position: fixed;
+    text-align: right;
+    color: #000000;
+}
+
+.docs {
+    float: right;
+    text-align: right;
 }

@@ -1,37 +1,62 @@
-import React from 'react'
+import React, { Component } from 'react'
 import SearchResults from './searchresults';
 import elasticsearch from 'elasticsearch';
+import ReactScrollPagination from 'react-scroll-pagination';
 
 let client = new elasticsearch.Client({
-	host: '192.168.1.46:9200',
+	host: 'localhost:9200',
 	log: 'trace'
 })
 
-class Searchbox extends React.Component {
-    constructor(props) {
-        super(props);
+let size = 30;
+let from_size = 0;
+let search_query = '*';
+let oldState;
+let max = 0;
+
+class Searchbox extends Component {
+    constructor(results, notFound, props) {                 //Initializing the functions
+        super(results, notFound, props);
 		this.state = { results: [], notFound: true }
         this.handleChange = this.handleChange.bind(this);
+        this.next = this.next.bind(this);
+        this.esSearch = this.esSearch.bind(this);
 	} 
 
-	componentWillMount() {
-		var search_query = '*';
-		this.esSearch(search_query);
+	componentDidMount() {                                   //Starting React Component Lifecycle
+        from_size = 0;
+        this.esSearch(search_query, from_size);
 	}
 
-	handleChange ( event ) {
-		var search_query = event.target.value + '*';
-		this.esSearch(search_query);
+    componentWillUnmount() {                                //Unmounting the Component
+    return true;
+  }
+
+  componentWillUpdate() {                                   //Not to update the component on component
+      return false;                                         //change
+  }
+
+	handleChange ( event ) {                            //Fetching Results While Typing
+		search_query = event.target.value + '*';
+        from_size = 0;
+        this.setState({
+                results: []                             //Array in which Results are stored
+            });
+        this.esSearch(search_query, from_size);
 	}
 
-	esSearch( sq ) {
+    next() {                                            //Scroll to next set of results
+        if(from_size<max) {
+        from_size += size;
+        this.esSearch(search_query, from_size);
+        }
+    }
+
+	esSearch( sq, from ) {                              //Passing the query to elasticsearch
 		var search_query = sq;
-		var size = 20;
-		var from_size = -20;
-		var from = from_size + size;
 
 		client.search({
-			index: 'photos',
+			index: 'photos',                            //Query Parameters
 			type: 'photo',
 			q: search_query,
 			size: size,
@@ -43,37 +68,51 @@ class Searchbox extends React.Component {
 			else {
 				this.setState({notFound: false})
 			}
-			this.setState({ results: body.hits.hits })
+            max = body.hits.total
+			oldState = this.state.results.slice();              //A new array to store data, to avoid
+            body.hits.hits.forEach(function (searchResult) {    //Mutability
+                oldState.push(searchResult)    
+            });
+            this.setState({
+                results: oldState
+            });
 		}.bind(this), function ( error ) {
 			console.trace( error.message );
 
 		});
 	}
 
-	renderNotFound() {
-    return <div>No Vectors found. Try a different search.</div>;
+	renderNotFound() {                                   //Display Not found if query returns nothing
+    return <div className="notFound">No Vectors found. Try a different search.</div>;
   	}
 
 	renderPosts() {
 
-		return(
+		return(                                         //Displays the query search results
 			<div className="results">
-                        <SearchResults results={ this.state.results } />
-						<button type="button" className="btn btn-default">Load More</button>
+                        <SearchResults key={this.from_size} results={ this.state.results } />
+                          <ReactScrollPagination
+                          fetchFunc={this.next.bind(this)}
+                            />
                     </div>
 		)
-		
 	}
     
     render() {
 
         const { notFound } = this.state;
-
         return (
             <div>
-                <input id="search" className="form-control form" type="text" placeholder="Start Searching" name="search" onChange={ this.handleChange }></input>
+                <input 
+                    id="search" 
+                    className="form-control form fix" 
+                    type="text" 
+                    placeholder="Start Searching" 
+                    name="s_query" 
+                    onChange={ this.handleChange }
+                ></input>
 					<div>
-						{notFound ? this.renderNotFound() : this.renderPosts()}
+						{notFound ? this.renderNotFound() : this.renderPosts()} 
 					</div>
             </div>
         )

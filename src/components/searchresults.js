@@ -1,37 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LazyLoad from 'react-lazy-load';
-
-let i = 1;
-
+import { Link } from 'react-router-dom';
 
 class SearchResults extends React.Component {
 
-	constructor(props) {
-        super(props);
-		this.state = { results: [] }
-	} 
+	componentWillMount() {
+		return this.state;
+	}
+
+	componentWillUnmount() {
+		return false;
+	}
 
 	render () {
+		
 		return (
-			<div>
+			<div className="cont">
 				<hr />
+				<div>
+				</div>
                 <ul>
-				{ this.props.results.map((result) => {
+				{ this.props.results.map((result) => {				//Fetching Each Element
 					return (
-								<li key={ result._id + i++}>
-									<LazyLoad className="lazy">
-										<img className="image" src={"http://rohitmotwani.com/photos/" + result._source.file_name} alt="Search Result" />
-									</LazyLoad>
-								</li>
-							) }) }		
+						<li key={ result._source.file_name }>
+							<LazyLoad className="lazy"> 
+									<div className="istyle">
+										<Link to={{pathname: '/photo/' + result._source.file_name + '/' + result._source.keywords, state: { modal: true }}}>
+											<img src={'/photos/' + result._source.file_name} className="image grow-shadow" alt="Search Result" />
+										</Link>
+									</div>
+							</LazyLoad>
+						</li>
+					) }) }		
 				</ul>
 			</div>
 		)
 	}
 }
 
-SearchResults.propTypes = {
+
+
+SearchResults.propTypes = {				//Setting the propTypes of the results, i.e Array
 		results: PropTypes.array
 	}
 
