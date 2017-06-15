@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 body {
     margin: 0;
     padding: 0;
@@ -28,12 +28,22 @@ h1 {
 
 h3 {
     font-size: 20px;
-    margin-bottom: 50px;
+}
+
+h2 a,
+h2 a:hover {
+    color: #000000;
+    font-size: 15px;
+    float: left;
 }
 
 h3 li {
     font-size: 18px;
     font-weight: 200;
+}
+
+span {
+    font-weight: 700;
 }
 
 .main {
@@ -102,6 +112,13 @@ h3 li {
     font-size: 20px;
 }
 
+.dlogo {
+    margin: auto;
+    margin-bottom: 40px;
+    width: 50px;
+    height: 50px;
+}
+
 .overlayStyles {
     position: 'fixed';
     top: 30;
@@ -120,7 +137,7 @@ h3 li {
 }
 
 .backHome {
-    margin: 0 0 100px 0;
+    margin: 20px 0 100px 0;
 }
 
 .grow-shadow {
@@ -162,6 +179,7 @@ h3 li {
     right: 10%;
     padding: 15px;
     border: 2px solid #444;
+    border-radius: 2%;
 }
 
 .closeRight {

@@ -26,7 +26,7 @@ class SearchResults extends React.Component {
 						<li key={ result._source.file_name }>
 							<LazyLoad className="lazy"> 
 									<div className="istyle">
-										<Link to={{pathname: '/photo/' + result._source.file_name , state: { keyword: result._source.keywords, modal: true }}} >
+										<Link to={{pathname: '/photo/' + result._source.file_name , state: { result: result._source , modal: true }}} >
 											<img src={'/photos/' + result._source.file_name} className="image grow-shadow" alt="Search Result" />
 										</Link>
 									</div>

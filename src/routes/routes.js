@@ -27,16 +27,36 @@ class Routes extends React.Component {
         location.state.modal &&
         this.previousLocation !== location 
         )
-        return(
-                 <div>
-                    <Switch location={isModal ? this.previousLocation : location}>
-                        <Route exact path = "/" component={App}/>
-                        <Route path = "/photo/:id/" render={(props) => (<Individual keywords={location.state.keyword} {...props} />)}/> 
-                        <Route path = "/*" component={NoMatch} /> 
-                    </Switch>
-                    {isModal ? <Route path='/photo/:id/' render={(props) => (<Single keywords={location.state.keyword} {...props} />)} /> : null}
-                </div>
-        )
+            return(
+                    <div>
+                        <Switch location={isModal ? this.previousLocation : location}>
+                            <Route exact path = "/" component={App}/>
+                            {location.state !== undefined ? 
+                            <Route path = "/photo/:id/" render={(props) => (
+                                <Individual 
+                                    headline={location.state.result.headline}
+                                    description={location.state.result.description}
+                                    keywords={location.state.result.keywords}
+                                    orientation={location.state.result.orientation} 
+                                    usageTerms={location.state.result.usageTerms}
+                                    create_date={location.state.result.create_date}
+                                    {...props} />  )}/> :
+                            <Route path = "/photo/:id/" component={Individual} /> }
+                            <Route path = "/*" component={NoMatch} />
+                        </Switch>
+                        
+                        {isModal ? <Route path='/photo/:id/' render={(props) => (
+                            <Single 
+                                headline={location.state.result.headline}
+                                description={location.state.result.description}
+                                keywords={location.state.result.keywords} 
+                                orientation={location.state.result.orientation}
+                                usageTerms={location.state.result.usageTerms}
+                                create_date={location.state.result.create_date}                                
+                                {...props} />)} /> : 
+                                null}
+                    </div>
+            )
     }
 }
 

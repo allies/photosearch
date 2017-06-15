@@ -32,12 +32,12 @@ class Searchbox extends Component {
     return true;
   }
 
-  componentWillUpdate() {                                   //Not to update the component on component
-      return false;                                         //change
-  }
+    componentWillUpdate() {                                   //Not to update the component on component
+        return false;                                         //change
+    }
 
 	handleChange = ( event ) => {                            //Fetching Results While Typing
-		search_query = event.target.value + '*';
+		search_query = event.target.value ;
         from_size = 0;
         this.setState({
                 results: []                             //Array in which Results are stored
@@ -90,11 +90,9 @@ class Searchbox extends Component {
 
 		return(                                         //Displays the query search results
 			<div className="results">
-                        <SearchResults key={this.from_size} results={ this.state.results } />
-                          <ReactScrollPagination
-                          fetchFunc={this.next.bind(this)}
-                            />
-                    </div>
+                <SearchResults key={this.from_size} results={ this.state.results } />
+                <ReactScrollPagination fetchFunc={this.next.bind(this)} triggerAt='300'/>
+            </div>
 		)
 	}
     
@@ -111,9 +109,9 @@ class Searchbox extends Component {
                     name="s_query" 
                     onChange={ this.handleChange }
                 ></input>
-					<div>
-						{notFound ? this.renderNotFound() : this.renderPosts()} 
-					</div>
+				<div>
+					{notFound ? this.renderNotFound() : this.renderPosts()} 
+				</div>
             </div>
         )
     }

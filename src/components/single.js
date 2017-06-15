@@ -1,4 +1,5 @@
 import React from 'react';
+import Content from './content';
 
 
 let f_name="";		
@@ -22,18 +23,18 @@ class Single extends React.Component {
 						<button className="close" onClick={this.back}>X</button>
 					</div>
 					<div className="cent">
-						<div>
-							<img className="image" src={"/photos/" + this.props.match.params.id} alt={this.props.match.params.id}/>
-						</div>
-						<div>
-							<h1>File Name: {f_name}</h1>
-							<h2><a className="btn btn-success" href={"/ai/" + f_name + ".ai"}>Download .ai file</a></h2>
-							<h2><a className="btn btn-success" href={"/eps/" + f_name + ".eps"}>Download .eps file</a></h2>
-							<h3>Keywords : <li>{this.props.keywords}</li></h3>
-							<button type='button' className="btn btn-primary grow-shadow" onClick={this.back}>
-								Close
-							</button>
-						</div>
+						<Content 
+							f_name ={f_name} 
+							id={this.props.match.params.id}
+							headline={this.props.headline}
+							description={this.props.description}
+							keywords={this.props.keywords}
+							orientation={this.props.orientation}
+							usageTerms={this.props.usageTerms}
+							create_date={this.props.create_date} />
+						<button type='button' className="btn btn-primary grow-shadow" onClick={this.back}>
+							Close
+						</button>
 					</div>
 					</div>
 			</div>
