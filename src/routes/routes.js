@@ -31,10 +31,10 @@ class Routes extends React.Component {
                  <div>
                     <Switch location={isModal ? this.previousLocation : location}>
                         <Route exact path = "/" component={App}/>
-                        <Route path = "/photo/:id/:keyw" component={Individual}/> 
+                        <Route path = "/photo/:id/" render={(props) => (<Individual keywords={location.state.keyword} {...props} />)}/> 
                         <Route path = "/*" component={NoMatch} /> 
                     </Switch>
-                    {isModal ? <Route path='/photo/:id/:keyw' component={Single} /> : null}
+                    {isModal ? <Route path='/photo/:id/' render={(props) => (<Single keywords={location.state.keyword} {...props} />)} /> : null}
                 </div>
         )
     }

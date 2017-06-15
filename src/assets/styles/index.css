@@ -123,11 +123,6 @@ h3 li {
     margin: 0 0 100px 0;
 }
 
-.modal-body {
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
-}
-
 .grow-shadow {
     display: inline-block;
     vertical-align: middle;
@@ -146,6 +141,27 @@ h3 li {
     box-shadow: 0 20px 20px -20px rgba(0, 0, 0, 0.5);
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.ModalWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.Modal {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    position: fixed;
+    background: #fff;
+    top: 25px;
+    left: 10%;
+    right: 10%;
+    padding: 15px;
+    border: 2px solid #444;
 }
 
 .closeRight {

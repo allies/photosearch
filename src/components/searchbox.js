@@ -36,7 +36,7 @@ class Searchbox extends Component {
       return false;                                         //change
   }
 
-	handleChange ( event ) {                            //Fetching Results While Typing
+	handleChange = ( event ) => {                            //Fetching Results While Typing
 		search_query = event.target.value + '*';
         from_size = 0;
         this.setState({
@@ -45,14 +45,14 @@ class Searchbox extends Component {
         this.esSearch(search_query, from_size);
 	}
 
-    next() {                                            //Scroll to next set of results
+    next = () => {                                            //Scroll to next set of results
         if(from_size<max) {
         from_size += size;
         this.esSearch(search_query, from_size);
         }
     }
 
-	esSearch( sq, from ) {                              //Passing the query to elasticsearch
+	esSearch = ( sq, from ) => {                              //Passing the query to elasticsearch
 		var search_query = sq;
 
 		client.search({
@@ -82,11 +82,11 @@ class Searchbox extends Component {
 		});
 	}
 
-	renderNotFound() {                                   //Display Not found if query returns nothing
+	renderNotFound = () => {                                   //Display Not found if query returns nothing
     return <div className="notFound">No Vectors found. Try a different search.</div>;
   	}
 
-	renderPosts() {
+	renderPosts = () => {
 
 		return(                                         //Displays the query search results
 			<div className="results">
