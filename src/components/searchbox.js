@@ -37,7 +37,7 @@ class Searchbox extends Component {
     }
 
 	handleChange = ( event ) => {                            //Fetching Results While Typing
-		search_query = event.target.value ;
+		search_query = event.target.value + '*' ;
         from_size = 0;
         this.setState({
                 results: []                             //Array in which Results are stored

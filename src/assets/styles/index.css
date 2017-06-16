@@ -114,7 +114,7 @@ span {
 
 .dlogo {
     margin: auto;
-    margin-bottom: 40px;
+    margin: 0 0 40px 10px;
     width: 50px;
     height: 50px;
 }
@@ -192,6 +192,10 @@ span {
     position: fixed;
     text-align: right;
     color: #000000;
+}
+
+.details {
+    text-align: left;
 }
 
 .docs {
