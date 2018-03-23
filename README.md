@@ -31,3 +31,4 @@ Again in the top level, run `npm start`
 
 This will start the react app in (http://localhost:3000/)
 
+Here is the keynote presentation of why and how I did this project (with screenshots): https://www.RohitMotwani.com/presentation.key
